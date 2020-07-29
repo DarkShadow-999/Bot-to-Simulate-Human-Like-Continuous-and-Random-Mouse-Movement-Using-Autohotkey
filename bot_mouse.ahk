@@ -1,4 +1,4 @@
-﻿#SingleInstance,Force
+#SingleInstance,Force
 SetBatchLines,-1
 CoordMode,Mouse,Screen
 
@@ -7,7 +7,7 @@ Start:=New HB_Vector(400,400)
 
 Gui,1:+AlwaysOnTop
 Gui,1:Add,Text,xm y+10 ,Mag1: 
-Gui,1:Add,Edit,x+10 w350 r1 vMag1 gSubmitAll,6
+Gui,1:Add,Edit,x+10 w350 r1 vMag1 gSubmitAll,1
 Gui,1:Add,Text,xm y+10 ,Mag2: 
 Gui,1:Add,Edit,x+10 w350 r1 vMag2 gSubmitAll,.4
 Gui,1:Show,x50 y50,Set Start And End Points
@@ -16,12 +16,12 @@ return
 GuiClose:
 GuiContextMenu:
 *ESC::
-	Click, Up
 	Confine := !Confine
 	ClipCursor( Confine, 100, 100, A_ScreenWidth-100, A_ScreenHeight-100 )
 	ExitApp
 
-
+*Numpad4::Reload
+	
 SubmitAll:
 	Gui,1:Submit,NoHide
 	return
@@ -38,7 +38,7 @@ Loop
 	
 	loop
 	{
-	Click, Down
+	
 	Random, x1,0, 1340
 	Random, y1,0, 655
 
