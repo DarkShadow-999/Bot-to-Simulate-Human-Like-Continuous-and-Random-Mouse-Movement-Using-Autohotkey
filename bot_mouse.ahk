@@ -22,6 +22,8 @@ GuiContextMenu:
 
 *Numpad4::Reload
 	
+*Numpad5::WinMinimize
+	
 SubmitAll:
 	Gui,1:Submit,NoHide
 	return
