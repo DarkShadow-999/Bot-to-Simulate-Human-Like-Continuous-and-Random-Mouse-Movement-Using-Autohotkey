@@ -19,14 +19,45 @@ GuiContextMenu:
 	Confine := !Confine
 	ClipCursor( Confine, 100, 100, A_ScreenWidth-100, A_ScreenHeight-100 )
 	ExitApp
-
-*Numpad4::Reload
-	
-*Numpad5::WinMinimize
-	
 SubmitAll:
 	Gui,1:Submit,NoHide
 	return
+
+
+*Numpad4::Reload
+	
+*Numpad5::
+; If no window is already selected 
+; or the selected window doesn't exist anymore, 
+; select the currently active window and minimize it:
+IfWinNotExist, ahk_id %selected_id%
+{
+    If (IsWindow(WinExist("A")) || WinActive("ahk_class ArtRage 3"))
+        WinGet, selected_id, ID, A
+    else
+    {
+        MsgBox, No window selected
+            return
+    }
+}
+WinGet, WinState, MinMax, ahk_id %selected_id%
+    If WinState = -1    ; the selected window is minimized  
+    {
+        WinRestore
+        selected_id := ""       
+    }
+    else
+        WinMinimize
+return
+
+; This checks if a window is, in fact a window,
+; as opposed to the desktop or a menu, etc.
+IsWindow(hwnd){
+   WinGet, s, Style, ahk_id %hwnd%
+   return s & 0xC00000 ? (s & 0x100 ? 0 : 1) : 0
+}
+	
+
 
 *Numpad1::
 *z::
